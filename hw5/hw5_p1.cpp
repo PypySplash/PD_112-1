@@ -2,48 +2,26 @@
 #include <cstring>
 #include <cstdlib>
 using namespace std;
-const int CNT = 100;
-const int MAX_PASSAGE_LEN = 1000;
-const int MAX_KEYWORD_LEN = 100;
+const int MAX_KEYWORD_LENGTH = 101;
+const int MAX_INPUT_LENGTH = 1001;
 
 int main()
 {
-    char keyword[MAX_KEYWORD_LEN];
-    cin >> keyword;
+    char keyword[MAX_KEYWORD_LENGTH];
+    char input[MAX_INPUT_LENGTH];
+    // 標點符號也可能在 keyword 裡面，故不需要 strtok ，直接用指針開始找即可。
+    cin.getline(keyword, MAX_KEYWORD_LENGTH);
+    cin.getline(input, MAX_INPUT_LENGTH);
 
-    char delim[] = ",.?!:;()-|";
-    char word[CNT][MAX_KEYWORD_LEN] = {0};
-    int wordCnt = 0;
+    for (int i = 0; keyword[i]; i++) keyword[i] = tolower(keyword[i]);
+    for (int i = 0; input[i]; i++) input[i] = tolower(input[i]);
 
-    char a[MAX_PASSAGE_LEN];
-    cin >> a;
-
-    char* start = strtok(a, delim);
-    while (start != nullptr)
-    {
-        strcpy(word[wordCnt], start);
-        wordCnt++;
-        start = strtok(nullptr, delim);
-    }
-
-    for (int i = 0; i < wordCnt; i++)
-        cout << word[i] << "";
-
-    // char* p = strstr(a, keyword);
-    char* p = strstr(a, "apple");
     int count = 0;
-
-    while (p != nullptr) 
+    char* p = strstr(input, keyword);
+    while (p != nullptr)
     {
-        *p = 'A';
-        *(p+1) = 'P';
-        // cout << count << "\n";
-        // count++;
-        p = strstr(p, keyword);
+        count++;
+        p = strstr(p + 1, keyword);
     }
-    // cout << a;
-    // cout << count << "\n";
-
-    delete [] p;
-    p = nullptr;
+    cout << count;
 }

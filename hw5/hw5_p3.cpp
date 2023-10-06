@@ -1,6 +1,6 @@
 #include <iostream>
-#include <cstdlib>
 #include <cstring>
+#include <cstdlib>
 using namespace std;
 const int MAX_SENTENCE_LEN = 1001;  // 長度不超過 1000，再加上 "\0"
 const int MAX_OUTPUT_LEN = 2001;  // 最壞的情況每個地方都要調整
@@ -52,7 +52,7 @@ void stringProcessing(char* input, char* output)
             else if (*(p - 1) == ' ' && *(p + 1) != ' ') {
                 output[index] = *p;
             }
-            index++;
+            index++;  // 每個情況可能會將 index +1~+2，故統一拿來這邊，使程式碼更加簡略
             p++;
         }
         // 處理遇到其他標點符號的問題

@@ -1,0 +1,10 @@
+apple
+I like to eat pineapple, NOT apple.
+
+happy
+Happy happy happy cat is really a catchy melody.
+
+ppp
+How many p are there in pppp?
+
+// 標點符號也可能在 keyword 裡面
