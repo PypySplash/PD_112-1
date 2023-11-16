@@ -1,13 +1,42 @@
 {
-  "version": "0.2.0",
+  "version": "2.0.0",
   "configurations": [
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
-      "request": "launch",
-      "args": [],
-      "cwd": "/Users/huangyuanyu/Documents/Projects/112-1 Programming Design",
-      "program": "/Users/huangyuanyu/Documents/Projects/112-1 Programming Design/build/Debug/outDebug"
-    }
+
+      {
+          "name": "clang++ - Build and debug active file",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${workspaceRoot}/hw8_p1",
+          "preLaunchTask": "build",
+          "internalConsoleOptions": "openOnSessionStart",
+          "logging": {
+              "moduleLoad": false,
+              "programOutput": true,
+              "trace": false
+          },
+          "showDisplayString": false,
+          "args": [],
+          "stopAtEntry": false,
+          "cwd": "${workspaceRoot}",
+          "environment": [],
+          "externalConsole": true, // set true to enable keyboard input
+          "osx": {
+              "MIMode": "lldb"
+          }
+      }
   ]
 }
+
+// {
+//   "version": "0.2.0",
+//   "configurations": [
+//     {
+//       "name": "C/C++ Runner: Debug Session",
+//       "type": "lldb",
+//       "request": "launch",
+//       "args": [],
+//       "cwd": "/Users/huangyuanyu/Documents/Projects/112-1 Programming Design",
+//       "program": "/Users/huangyuanyu/Documents/Projects/112-1 Programming Design/build/Debug/outDebug"
+//     }
+//   ]
+// }

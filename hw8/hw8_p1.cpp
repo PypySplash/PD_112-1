@@ -13,13 +13,13 @@ public:
     char* name;
     int materialCost;
     // n: name, mc: material cost
-    Item(char* n, int mc);
+    Item(const char* n, const int mc);
     Item(const Item& item);  // header of copy constructor
     ~Item();
     void operator=(const Item& item);  // header of assignment operator
 };
 
-Item::Item(char* n, int mc)
+Item::Item(const char* n, const int mc)
 {
     name = new char[strlen(n) + 1];
     strcpy(name, n);
@@ -67,7 +67,7 @@ public:
             int salesQty, int itemCnt);
     Product(const Product& prod);  // header of copy constructor
     ~Product();
-    void operator=(const Product& prod);  // header of assignment operator
+    const void operator=(const Product& prod);  // header of assignment operator
     bool isInFrontOf(const Product& prod, int criterion);
     void addItem(Item* itemPtr);
 };
@@ -108,7 +108,7 @@ Product::~Product() {
     // }
     delete[] itemList; // 最後刪除 itemList 陣列
 }
-void Product::operator=(const Product& prod)
+const void Product::operator=(const Product& prod)
 {
     if (this != &prod) // 檢查自我賦值
     {
