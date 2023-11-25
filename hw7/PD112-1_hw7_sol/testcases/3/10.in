@@ -1,0 +1,27 @@
+8 8 10
+WaterPods,40 20 1200
+WaterPods Max,50 30 900
+jPhone 412,208 120 1000
+jPhone 41 Pro2,250 140 800
+jPhone 413,208 120 1000
+jPhone 41 Prod,250 140 800
+jPhone 41,208 120 1000
+jPhone 41 Pro,250 140 800
+T 6 3
+S,WaterPods,0
+T 6 2
+S,WaterPods Max,0
+T 6 4
+S,jPhone 412,2
+T 5 5
+S,jPhone 41 Pro2,2
+T 4 5
+S,jPhone 413,2
+T 3 7
+S,jPhone 41 Prod,5
+T 6 5
+S,jPhone 41,2
+T 1 2
+S,jPhone 41 Pro,2
+T 2 6
+T 6 3

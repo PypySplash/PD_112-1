@@ -1,73 +1,40 @@
 #include <iostream>
+#include <cstdlib> // 用於abs函數
+#include <limits>  // 為了使用 INT_MAX
 using namespace std;
 
-int main()
-{
-    int n = 0;
+// 函數來計算某個月份到年初的總天數
+int daysTillDate(int month, int day) {
+    int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int totalDays = 0;
+    for (int i = 1; i < month; ++i) {
+        totalDays += daysInMonth[i];
+    }
+    totalDays += day;
+    return totalDays;
+}
+
+int main() {
+    // 讀入日期數量
+    int n;
     cin >> n;
-    int** date = new int* [n];
-    for (int i = 0; i < n; i++)
-    {
-        date[i] = new int [2];
-    }
-    
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            cin >> date[i][j];
-        }
-    }
-    int difference = 0, minDiffer = 365;
 
-    for (int i = 0; i < n; i++)
-    {
-        // if (date[i][0] > date[i+1][0])
-        // {
-        //     difference = (date[i][0] - date[i+1][0]) * 30 + date
-        // }
-        int difference = 0;
-        if (i == 2) break;
-        if (abs(date[i][0] - date[i + 1][0]) == 0)
-        {
-            difference = abs(date[i][1] - date[i + 1][1]) - 1;
-        }
-        if (abs(date[i][0] - date[i + 1][0]) > 0)
-        {
-            if (date[i][0] > date[i+1][0])  // 等等回來考慮跨多個月份
-            {
-                if (date[i+1][0] == 1 || date[i+1][0] == 3 || date[i+1][0] == 5 || date[i+1][0] == 7 || date[i+1][0] == 8 || date[i+1][0] == 10 || date[i+1][0] == 12)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (31 - date[i+1][1]) + date[i][1] - 1;
-                }
-                if (date[i+1][0] == 2 || date[i+1][0] == 4 || date[i+1][0] == 6 || date[i+1][0] == 9 || date[i+1][0] == 11)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (30 - date[i+1][1]) + date[i][1] - 1;
-                }
-            }
-            if (date[i][0] < date[i+1][0])  // 等等回來考慮跨多個月份
-            {
-                if (date[i][0] == 1 || date[i][0] == 3 || date[i][0] == 5 || date[i][0] == 7 || date[i][0] == 8 || date[i][0] == 10 || date[i][0] == 12)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (31 - date[i][1]) + date[i+1][1] - 1;
-                }
-                if (date[i][0] == 2 || date[i][0] == 4 || date[i][0] == 6 || date[i][0] == 9 || date[i][0] == 11)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (30 - date[i][1]) + date[i+1][1] - 1;
-                }
-            }
-        }
-        if (difference < minDiffer)
-        {
-            minDiffer = difference;
-        }
-    }
-    cout << minDiffer;
+    // 假設最多只有100個日期
+    int months[100], days[100]; 
 
-    for (int i = 0; i < n; i++)
-    {
-        delete [] date[i];
+    for (int i = 0; i < n; ++i) {
+        cin >> months[i] >> days[i];
     }
-    delete [] date;
-    date = nullptr;
+
+    int minDiff = 366; // 最小天數差
+    for (int i = 0; i < n - 1; ++i) {
+        int days1 = daysTillDate(months[i], days[i]);
+        int days2 = daysTillDate(months[i + 1], days[i + 1]);
+        int diff = abs(days2 - days1) - 1;
+        minDiff = min(minDiff, diff);
+    }
+
+    cout << minDiff << endl;
+
+    return 0;
 }

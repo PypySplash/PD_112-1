@@ -1,0 +1,21 @@
+5 5 10
+FdseKdPcOegiRqvsPEWGmoQgl npOmRdgPtjLFocFkejalEXqqHkOssxGhGNsncxRxkZJCrsKFZRzRcXuxBvEMXlAjeDtSjnZnjc,512 511 2048
+nDwwwVswzBYuiXvUvTnoTvJzzWNYSWRhTHNxNof iqoHdsZUSrPqatWxdEMIaJvAmcZYRz CKSjkFcWNBGQcfDxCKIzCwUBieAKg,528 474 90
+llQmZLEEYIEeiIpjIYtFkmZYedWVFkfmb aCVrkCRbiHl plvAplywwFfkz qxod ZzL YLgbbWocZNWMljBcMmcwmxUyAWkHUyK,256 136 4096
+wjEOEtRjxUBrEUBieKX yQcZSDVgkNNEdEgvsUuRStFCcZTyRLxuSGTkzfTyPJGIOwl iWgvMniSdyJBOvAYM GOtXhUHaHubfdI,48 41 45
+gBEDeZwNucHgHbOkJsgXjhMwjxfqLCqasHsRicvDXeHfNwbnznrnQtiogPDSAbvCxMFwMtMuEtCUidnfOSbftaOmuNgyMjfbYijc,128 97 8192
+T 5 2
+S,FdseKdPcOegiRqvsPEWGmoQgl npOmRdgPtjLFocFkejalEXqqHkOssxGhGNsncxRxkZJCrsKFZRzRcXuxBvEMXlAjeDtSjnZnjc,51
+T 2 3
+T 5 1
+S,nDwwwVswzBYuiXvUvTnoTvJzzWNYSWRhTHNxNof iqoHdsZUSrPqatWxdEMIaJvAmcZYRz CKSjkFcWNBGQcfDxCKIzCwUBieAKg,52
+T 3 1
+T 5 3
+S,llQmZLEEYIEeiIpjIYtFkmZYedWVFkfmb aCVrkCRbiHl plvAplywwFfkz qxod ZzL YLgbbWocZNWMljBcMmcwmxUyAWkHUyK,25
+T 4 4
+T 5 2
+S,wjEOEtRjxUBrEUBieKX yQcZSDVgkNNEdEgvsUuRStFCcZTyRLxuSGTkzfTyPJGIOwl iWgvMniSdyJBOvAYM GOtXhUHaHubfdI,48
+S,gBEDeZwNucHgHbOkJsgXjhMwjxfqLCqasHsRicvDXeHfNwbnznrnQtiogPDSAbvCxMFwMtMuEtCUidnfOSbftaOmuNgyMjfbYijc,12
+T 6 2
+T 1 1
+T 5 3

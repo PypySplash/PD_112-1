@@ -7,16 +7,20 @@ const int LEN = 102;
 class Item 
 {
 private:
-    // char* name;
-    // int materialCost;
-public:
     char* name;
     int materialCost;
+public:
     // n: name, mc: material cost
     Item(const char* n, const int mc);
     Item(const Item& item);  // header of copy constructor
     ~Item();
-    void operator=(const Item& item);  // header of assignment operator
+    char* getName() {
+        return this->name;
+    }
+    int getMaterialCost() {
+        return this->materialCost;
+    }
+    const Item& operator=(const Item& item);  // header of assignment operator
 };
 
 Item::Item(const char* n, const int mc)
@@ -33,8 +37,10 @@ Item::Item(const Item& item)  // copy constructor
 }
 Item::~Item() {
     delete [] name;
+    name = nullptr;
 }
-void Item::operator=(const Item& item)  // assignment operator
+
+const Item& Item::operator=(const Item& item)  // assignment operator
 {
     if (this != &item) // 檢查自我賦值
     {
@@ -43,18 +49,12 @@ void Item::operator=(const Item& item)  // assignment operator
         strcpy(name, item.name);
         materialCost = item.materialCost;
     }
+    return *this;
 }
 
 class Product
 {
 private:
-    // char* name;
-    // int price;
-    // int laborCost;
-    // int salesQty;
-    // int itemCnt;
-    // Item** itemList;
-public:
     char* name;
     int price;
     int laborCost;
@@ -62,6 +62,8 @@ public:
     int itemCnt;
     Item** itemList;
     int index;
+    int totalCost;
+public:
     // Product();
     Product(char* name, int price, int laborCost, 
             int salesQty, int itemCnt);
@@ -70,6 +72,32 @@ public:
     const void operator=(const Product& prod);  // header of assignment operator
     bool isInFrontOf(const Product& prod, int criterion);
     void addItem(Item* itemPtr);
+    char* getName() {
+        return this->name;
+    }
+    int getPrice() {
+        return this->price;
+    }
+    int getLaborCost() {
+        return this->laborCost;
+    }
+    int getSalesQty() {
+        return this->salesQty;
+    }
+    int getItemCnt() {
+        return this->itemCnt;
+    }
+    Item** getItemList() {
+        return this->itemList;
+    }
+    int getTotalCost() {
+        return this->totalCost;
+    }
+    int calculateProfit() {
+        // Profit = Sales Quantity * (Price - Overall Cost)
+        int result = this->salesQty * (this->price - this->totalCost);
+        return result;
+    }
 };
 // you may define more members by yourselves
 Product::Product(char* n, int p, int lc, int sq, int ic)
@@ -87,6 +115,7 @@ Product::Product(char* n, int p, int lc, int sq, int ic)
     laborCost = lc;
     salesQty = sq;
     itemCnt = ic;
+    totalCost = lc;
 }
 Product::Product(const Product& prod)  // copy constructor
 {
@@ -102,11 +131,13 @@ Product::Product(const Product& prod)  // copy constructor
     }
 }
 Product::~Product() {
-    delete [] name;
+    delete [] this->name;
+    this->name = nullptr;
     // for (int i = 0; i < itemCnt; i++) {
     //     delete itemList[i]; // 刪除每個 Item 對象
     // }
-    delete[] itemList; // 最後刪除 itemList 陣列
+    delete[] this->itemList; // 最後刪除 itemList 陣列
+    this->itemList = nullptr;
 }
 const void Product::operator=(const Product& prod)
 {
@@ -145,15 +176,15 @@ bool Product::isInFrontOf(const Product &prod, int criterion)
                 return strcmp(this->name, prod.name) < 0;
             break;
         case 2:
-            if (this->laborCost > prod.laborCost) 
+            if (this->totalCost > prod.totalCost) 
                 return true;
-            else if (this->laborCost == prod.laborCost)
+            else if (this->totalCost == prod.totalCost)
                 return strcmp(this->name, prod.name) < 0;
             break;
-        case 3:  // 毛利 = price - laborCost
-            if ((this->price - this->laborCost) > (prod.price - prod.laborCost)) 
+        case 3:  // 毛利 = price - totalCost
+            if ((this->price - this->totalCost) > (prod.price - prod.totalCost)) 
                 return true;
-            else if ((this->price - this->laborCost) == (prod.price - prod.laborCost))
+            else if ((this->price - this->totalCost) == (prod.price - prod.totalCost))
                 return strcmp(this->name, prod.name) < 0;
             break;
         case 4:
@@ -168,10 +199,10 @@ bool Product::isInFrontOf(const Product &prod, int criterion)
             else if ((this->price * this->salesQty) == (prod.price * prod.salesQty))
                 return strcmp(this->name, prod.name) < 0;
             break;
-        case 6:  // 總利潤 = 毛利 * salesQty = (price - laborCost) * salesQty
-            if ((this->price - this->laborCost) * this->salesQty > (prod.price - prod.laborCost) * prod.salesQty) 
+        case 6:  // 總利潤 = 毛利 * salesQty = (price - totalCost) * salesQty
+            if ((this->price - this->totalCost) * this->salesQty > (prod.price - prod.totalCost) * prod.salesQty) 
                 return true;
-            else if ((this->price - this->laborCost) * this->salesQty == (prod.price - prod.laborCost) * prod.salesQty)
+            else if ((this->price - this->totalCost) * this->salesQty == (prod.price - prod.totalCost) * prod.salesQty)
                 return strcmp(this->name, prod.name) < 0;
             break;
     }
@@ -180,8 +211,8 @@ bool Product::isInFrontOf(const Product &prod, int criterion)
 
 void Product::addItem(Item* itemPtr)
 {
-    this->itemList[index] = itemPtr;
-    this->index++;
+    this->itemList[index++] = itemPtr;
+    this->totalCost += itemPtr->getMaterialCost();
 }
 
 void swapPtr(Product*& p1, Product*& p2)
@@ -240,14 +271,14 @@ int main()
 
         for (int j = 0; j < productCnt; j++)
         {
-            if (strcmp(productName2, products[j]->name) == 0)
+            if (strcmp(productName2, products[j]->getName()) == 0)
             {
                 for (int k = 0; k < itemTotalCnt; k++)
                 {
-                    if (strcmp(itemName2, items[k]->name) == 0)
+                    if (strcmp(itemName2, items[k]->getName()) == 0)
                     {
                         products[j]->addItem(items[k]);
-                        products[j]->laborCost += items[k]->materialCost;
+                        // products[j]->laborCost += items[k]->materialCost;
                         break;
                     }
                 }
@@ -258,7 +289,7 @@ int main()
     int y = 0, k = 0;
     cin >> y >> k;
 
-    for (int i = 0; i < productCnt; i++)
+    for (int i = 0; i < productCnt - 1; i++)
     {
         for (int j = 0; j < productCnt - i - 1; j++)
         {
@@ -268,7 +299,8 @@ int main()
     }
     int sum = 0;
     for (int i = 0; i < k; i++)
-        sum += (products[i]->price - products[i]->laborCost) * products[i]->salesQty;
+        sum += products[i]->calculateProfit();
+        // sum += (products[i]->price - products[i]->laborCost) * products[i]->salesQty;
     cout << sum;
     
     for (int i = 0; i < productCnt; i++) {

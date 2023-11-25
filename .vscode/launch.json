@@ -6,7 +6,7 @@
           "name": "clang++ - Build and debug active file",
           "type": "cppdbg",
           "request": "launch",
-          "program": "${workspaceRoot}/hw8_p1",
+          "program": "${workspaceRoot}/hw9_p3",
           "preLaunchTask": "build",
           "internalConsoleOptions": "openOnSessionStart",
           "logging": {

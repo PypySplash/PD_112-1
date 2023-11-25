@@ -1,62 +1,36 @@
 #include <iostream>
+#include <cstdlib> // 用於abs函數
 using namespace std;
 
-int main()
-{
-    int date [3][2];
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            cin >> date[i][j];
-        }
+// 函數來計算某個月份到年初的總天數
+int daysTillDate(int month, int day) {
+    int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int totalDays = 0;
+    for (int i = 1; i < month; ++i) {
+        totalDays += daysInMonth[i];
     }
-    int difference = 0, minDiffer = 365;
-    for (int i = 0; i < 3; i++)
-    {
-        int difference = 0;
-        if (i == 2) break;
-        if (abs(date[i][0] - date[i + 1][0]) == 0)
-        {
-            difference = abs(date[i][1] - date[i + 1][1]) - 1;
-        }
-        if (abs(date[i][0] - date[i + 1][0]) > 0)
-        {
-            if (date[i][0] > date[i+1][0])  // 等等回來考慮跨多個月份
-            {
-                if (date[i+1][0] == 1 || date[i+1][0] == 3 || date[i+1][0] == 5 || date[i+1][0] == 7 || date[i+1][0] == 8 || date[i+1][0] == 10 || date[i+1][0] == 12)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (31 - date[i+1][1]) + date[i][1] - 1;
-                }
-                if (date[i+1][0] == 4 || date[i+1][0] == 6 || date[i+1][0] == 9 || date[i+1][0] == 11)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (30 - date[i+1][1]) + date[i][1] - 1;
-                }
-                if (date[i+1][0] == 2)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (28 - date[i+1][1]) + date[i][1] - 1;
-                }
-            }
-            if (date[i][0] < date[i+1][0])  // 等等回來考慮跨多個月份
-            {
-                if (date[i][0] == 1 || date[i][0] == 3 || date[i][0] == 5 || date[i][0] == 7 || date[i][0] == 8 || date[i][0] == 10 || date[i][0] == 12)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (31 - date[i][1]) + date[i+1][1] - 1;
-                }
-                if (date[i][0] == 4 || date[i][0] == 6 || date[i][0] == 9 || date[i][0] == 11)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (30 - date[i][1]) + date[i+1][1] - 1;
-                }
-                if (date[i][0] == 2)
-                {
-                    difference = 30 * (abs(date[i][0] - date[i + 1][0]) - 1) + (28 - date[i][1]) + date[i+1][1] - 1;
-                }
-            }
-        }
-        if (difference < minDiffer)
-        {
-            minDiffer = difference;
-        }
-    }
-    cout << minDiffer;
+    totalDays += day;
+    return totalDays;
+}
+
+int main() {
+    // 輸入的三個日期
+    int month1, day1, month2, day2, month3, day3;
+    cin >> month1 >> day1;
+    cin >> month2 >> day2;
+    cin >> month3 >> day3;
+
+    // 計算每個日期到年初的總天數
+    int days1 = daysTillDate(month1, day1);
+    int days2 = daysTillDate(month2, day2);
+    int days3 = daysTillDate(month3, day3);
+
+    // 計算兩個日期之間的天數差異
+    int diff1 = abs(days2 - days1) - 1;
+    int diff2 = abs(days3 - days2) - 1;
+
+    // 輸出較小的天數差異
+    cout << min(diff1, diff2) << endl;
+
+    return 0;
 }

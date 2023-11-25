@@ -1,0 +1,24 @@
+4 5 13
+jPhone 41,200 100 1000 3
+jPhone 41 Pro,250 90 800 6
+WaterPods,40 5 1200 2
+WaterPods Max,50 15 900 2
+Screen,5
+Speaker,10
+Great Battery,5
+Motherboard,10
+Lens,10
+jPhone 41,Screen
+jPhone 41,Great Battery
+jPhone 41 Pro,Screen
+jPhone 41 Pro,Speaker
+jPhone 41 Pro,Great Battery
+jPhone 41 Pro,Motherboard
+jPhone 41 Pro,Lens
+jPhone 41,Motherboard
+WaterPods,Screen
+WaterPods,Speaker
+WaterPods Max,Screen
+WaterPods Max,Motherboard
+jPhone 41 Pro,Lens
+4 3
