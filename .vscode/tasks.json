@@ -7,8 +7,8 @@
             "command": "clang++",
             "args": [
                 "-o",
-                "hw9_p3", // executable
-                "hw9_p3.cpp", // main file
+                "hw10_p3", // executable
+                "hw10_p3.cpp", // main file
                 "-g",
                 "-v"
             ],
