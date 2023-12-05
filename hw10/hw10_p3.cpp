@@ -254,8 +254,9 @@ const ShowAnimal& ShowAnimal::operator=(const ShowAnimal& sa)
 }
 void ShowAnimal::addShowDate(const Date& d)
 {
-    if (d.year < this->birthday.year || (d.year == this->birthday.year && d.month < birthday.month) || (d.year == birthday.year && d.month == birthday.month && d.day < birthday.day))
-    {
+    if (d.year < this->birthday.year || 
+       (d.year == this->birthday.year && d.month < birthday.month) || 
+       (d.year == birthday.year && d.month == birthday.month && d.day < birthday.day)) {
         return;
     }
     // 检查日期是否重复或早于出生日期
@@ -291,23 +292,15 @@ int ShowAnimal::getShowCnt(const Date& start, const Date& end) const
 {
     int count = 0;
     for (int i = 0; i < this->showCnt; i++) {
-        // 检查日期是否晚于动物的生日
-        // bool afterBirthday = (showDates[i]->year > birthday.year) ||
-        //                      (showDates[i]->year == birthday.year && showDates[i]->month > birthday.month) ||
-        //                      (showDates[i]->year == birthday.year && showDates[i]->month == birthday.month && showDates[i]->day >= birthday.day);
-
         // 检查日期是否在指定范围内
-        bool withinRange = ((showDates[i]->year > start.year || 
-                            (showDates[i]->year == start.year && showDates[i]->month > start.month) ||
-                            (showDates[i]->year == start.year && showDates[i]->month == start.month && showDates[i]->day >= start.day)) &&
-                           (showDates[i]->year < end.year || 
-                            (showDates[i]->year == end.year && showDates[i]->month < end.month) ||
-                            (showDates[i]->year == end.year && showDates[i]->month == end.month && showDates[i]->day <= end.day)));
-    
-        if (withinRange) count++;
-        // if (afterBirthday && withinRange) {
-        //     count++;
-        // }
+        if ((showDates[i]->year > start.year || 
+            (showDates[i]->year == start.year && showDates[i]->month > start.month) ||
+            (showDates[i]->year == start.year && showDates[i]->month == start.month && showDates[i]->day >= start.day)) &&
+            (showDates[i]->year < end.year || 
+            (showDates[i]->year == end.year && showDates[i]->month < end.month) ||
+            (showDates[i]->year == end.year && showDates[i]->month == end.month && showDates[i]->day <= end.day))) {
+            count++;
+        }
     }
     return count;
 }
@@ -534,16 +527,6 @@ int main()
             }
 
             myZoo.setDisplayTime(name, startTime, endTime);
-
-            // for (int j = 0; j < displayAnimalCnt; j++) 
-            // {
-            //     // DisplayAnimal* displayAnimal = dynamic_cast<DisplayAnimal*>(displayAnimalPtr[j]);
-            //     if (displayAnimal && name == displayAnimal->getName())
-            //     {
-            //         displayAnimal->setDisplayTime(startTime, endTime);
-            //         break; // 假設每個名稱是唯一的，找到後即可跳出迴圈
-            //     }
-            // }
         }
 
         if (record == 'N')
@@ -553,20 +536,6 @@ int main()
             cin >> id >> newName;
 
             myZoo.setName(id, newName);
-
-            // for (int j = 0; j < displayAnimalCnt; j++) {
-            //     if (id == displayAnimalPtr[j]->getId()) { // 假設 Animal 類中有一個 getId() 方法
-            //         displayAnimalPtr[j]->setName(newName);
-            //         break; // 假設每個 ID 是唯一的，找到後即可跳出迴圈
-            //     }
-            // }
-
-            // for (int j = 0; j < showAnimalCnt; j++) {
-            //     if (id == showAnimalPtr[j]->getId()) { // 假設 Animal 類中有一個 getId() 方法
-            //         showAnimalPtr[j]->setName(newName);
-            //         break; // 假設每個 ID 是唯一的，找到後即可跳出迴圈
-            //     }
-            // }
         }
 
         if (record == 'A')
@@ -577,59 +546,9 @@ int main()
             Date showDate = parseDate(showDateStr);
 
             myZoo.addShowDate(name, showDate);
-            
-            // for (int j = 0; j < showAnimalCnt; j++)
-            // {
-            //     ShowAnimal* showAnimal = dynamic_cast<ShowAnimal*>(showAnimalPtr[j]);
-            //     if (name == showAnimal->getName()) {
-            //         showAnimal->addShowDate(showDate);
-            //     }
-            // }
         }
     }
 
     myZoo.print();
     myZoo.findMostBusyShowAnimal()->print();
-    // char inquiry;
-    // cin >> inquiry;
-    // if (inquiry == 'Q')
-    // {
-    //     string name;
-    //     char startDateStr[11], endDateStr[11];
-    //     cin >> name >> startDateStr >> endDateStr;
-
-    //     Date startDate = parseDate(startDateStr);
-    //     Date endDate = parseDate(endDateStr);
-
-        
-
-    //     // cout << displayAnimalCnt << "," << showAnimalCnt << endl;
-
-    //     // for (int j = 0; j < displayAnimalCnt; j++)
-    //     // {
-    //     //     if (name == displayAnimalPtr[j]->getName())
-    //     //     {
-    //     //         displayAnimalPtr[j]->print();
-    //     //         break;  // 假設每個名稱是唯一的，找到後即可跳出迴圈
-    //     //     }
-    //     // }
-
-    //     // for (int j = 0; j < showAnimalCnt; j++) 
-    //     // {
-    //     //     if (name == showAnimalPtr[j]->getName())
-    //     //     {
-    //     //         showAnimalPtr[j]->print(startDate, endDate);
-    //     //         break;  // 假設每個名稱是唯一的，找到後即可跳出迴圈
-    //     //     }
-    //     // }
-    // }
-    
-    // for (int i = 0; i < displayAnimalCnt; i++) {
-    //     delete displayAnimalPtr[i];
-    // }
-    // for (int i = 0; i < showAnimalCnt; i++) {
-    //     delete showAnimalPtr[i];
-    // }
-    // delete[] displayAnimalPtr;
-    // delete[] showAnimalPtr;
 }

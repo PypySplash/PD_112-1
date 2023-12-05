@@ -69,7 +69,7 @@ public:
             int salesQty, int itemCnt);
     Product(const Product& prod);  // header of copy constructor
     ~Product();
-    const void operator=(const Product& prod);  // header of assignment operator
+    const Product& operator=(const Product& prod);  // header of assignment operator
     bool isInFrontOf(const Product& prod, int criterion);
     void addItem(Item* itemPtr);
     char* getName() {
@@ -139,7 +139,7 @@ Product::~Product() {
     delete[] this->itemList; // 最後刪除 itemList 陣列
     this->itemList = nullptr;
 }
-const void Product::operator=(const Product& prod)
+const Product& Product::operator=(const Product& prod)
 {
     if (this != &prod) // 檢查自我賦值
     {
@@ -161,6 +161,7 @@ const void Product::operator=(const Product& prod)
             itemList[i] = prod.itemList[i];
         }
     }
+    return *this;
 }
 
 

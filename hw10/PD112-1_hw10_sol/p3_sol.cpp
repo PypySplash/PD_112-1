@@ -572,11 +572,14 @@ void Zoo::setDisplayTime(string name, const Time& start, const Time& end)
         {
             // to access the function "setDisplayTime" defined in DisplayAnimal (NOT in Animal),
             // we have to cast Animal* to DisplayAnimal*
+
                 // remark 1: dynamic_cast is typically used for handling polymorphism;
                 //           it converts a pointer of the parent class to a pointer of the child class
+
                 // remark 2: we may move the defition of "setDisplayTime" to Animal,
                 //           and make it a pure virtual function that will be overridden by DisplayAnimal;
                 //           dynamic_cast is not needed for this strategy
+                // 這種做法較不建議，若有數十個 function 要 move 太耗工夫
             dynamic_cast<DisplayAnimal*>(this->animals[i])->setDisplayTime(start, end);
             return;
         }

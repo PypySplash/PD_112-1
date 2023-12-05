@@ -211,6 +211,12 @@ ShowAnimal::~ShowAnimal()
 }
 void ShowAnimal::addShowDate(const Date& d)
 {
+    if (d.year < this->birthday.year || 
+       (d.year == this->birthday.year && d.month < birthday.month) || 
+       (d.year == birthday.year && d.month == birthday.month && d.day < birthday.day)) {
+        return;
+    }
+    
     // 检查日期是否重复或早于出生日期
     for (int i = 0; i < showCnt; i++) {
         if ((showDates[i]->year == d.year && showDates[i]->month == d.month && showDates[i]->day == d.day) || 
@@ -241,20 +247,13 @@ int ShowAnimal::getShowCnt(const Date& start, const Date& end) const
 {
     int count = 0;
     for (int i = 0; i < showCnt; i++) {
-        // 检查日期是否晚于动物的生日
-        bool afterBirthday = (showDates[i]->year > birthday.year) ||
-                             (showDates[i]->year == birthday.year && showDates[i]->month > birthday.month) ||
-                             (showDates[i]->year == birthday.year && showDates[i]->month == birthday.month && showDates[i]->day >= birthday.day);
-
         // 检查日期是否在指定范围内
-        bool withinRange = ((showDates[i]->year > start.year || 
-                            (showDates[i]->year == start.year && showDates[i]->month > start.month) ||
-                            (showDates[i]->year == start.year && showDates[i]->month == start.month && showDates[i]->day >= start.day)) &&
-                           (showDates[i]->year < end.year || 
-                            (showDates[i]->year == end.year && showDates[i]->month < end.month) ||
-                            (showDates[i]->year == end.year && showDates[i]->month == end.month && showDates[i]->day <= end.day)));
-
-        if (afterBirthday && withinRange) {
+        if ((showDates[i]->year > start.year || 
+            (showDates[i]->year == start.year && showDates[i]->month > start.month) ||
+            (showDates[i]->year == start.year && showDates[i]->month == start.month && showDates[i]->day >= start.day)) &&
+            (showDates[i]->year < end.year || 
+            (showDates[i]->year == end.year && showDates[i]->month < end.month) ||
+            (showDates[i]->year == end.year && showDates[i]->month == end.month && showDates[i]->day <= end.day))) {
             count++;
         }
     }
